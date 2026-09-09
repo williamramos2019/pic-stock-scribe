@@ -14,7 +14,86 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      itens: {
+        Row: {
+          categoria: string | null
+          codigo: string | null
+          created_at: string
+          descricao: string | null
+          estoque_minimo: number
+          foto_url: string | null
+          id: string
+          localizacao: string | null
+          nome: string
+          quantidade: number
+          unidade: string
+          updated_at: string
+        }
+        Insert: {
+          categoria?: string | null
+          codigo?: string | null
+          created_at?: string
+          descricao?: string | null
+          estoque_minimo?: number
+          foto_url?: string | null
+          id?: string
+          localizacao?: string | null
+          nome?: string
+          quantidade?: number
+          unidade?: string
+          updated_at?: string
+        }
+        Update: {
+          categoria?: string | null
+          codigo?: string | null
+          created_at?: string
+          descricao?: string | null
+          estoque_minimo?: number
+          foto_url?: string | null
+          id?: string
+          localizacao?: string | null
+          nome?: string
+          quantidade?: number
+          unidade?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      movimentacoes: {
+        Row: {
+          created_at: string
+          id: string
+          item_id: string
+          observacao: string | null
+          quantidade: number
+          tipo: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          item_id: string
+          observacao?: string | null
+          quantidade?: number
+          tipo?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          item_id?: string
+          observacao?: string | null
+          quantidade?: number
+          tipo?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "movimentacoes_item_id_fkey"
+            columns: ["item_id"]
+            isOneToOne: false
+            referencedRelation: "itens"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
