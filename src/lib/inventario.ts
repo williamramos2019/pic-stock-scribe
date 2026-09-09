@@ -52,7 +52,11 @@ export async function listarItens(): Promise<ItemComFoto[]> {
   let mapa = new Map<string, string>();
   if (paths.length) {
     const { data: signed } = await supabase.storage.from(BUCKET).createSignedUrls(paths, 60 * 60 * 24);
-    mapa = new Map((signed ?? []).map((s) => [s.path as string, s.signedUrl]));
+    mapa = new Map(
+      (signed ?? [])
+        .filter((s) => !!s.signedUrl && !!s.path)
+        .map((s) => [s.path as string, s.signedUrl as string]),
+    );
   }
   return itens.map((i) => ({ ...i, fotoSrc: i.foto_url ? (mapa.get(i.foto_url) ?? null) : null }));
 }
