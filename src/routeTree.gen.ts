@@ -11,6 +11,11 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as PublicoRouteImport } from './routes/publico'
+import { Route as ApiPublicInventarioIndexRouteImport } from './routes/api/public/inventario/index'
+import { Route as ApiPublicInventarioItensRouteImport } from './routes/api/public/inventario/itens'
+import { Route as ApiPublicInventarioMovimentacoesRouteImport } from './routes/api/public/inventario/movimentacoes'
+import { Route as ApiPublicInventarioResumoRouteImport } from './routes/api/public/inventario/resumo'
+import { Route as ApiPublicInventarioItensIdRouteImport } from './routes/api/public/inventario/itens.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -22,31 +27,102 @@ const PublicoRoute = PublicoRouteImport.update({
   path: '/publico',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicInventarioIndexRoute =
+  ApiPublicInventarioIndexRouteImport.update({
+    id: '/api/public/inventario/',
+    path: '/api/public/inventario/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiPublicInventarioItensRoute =
+  ApiPublicInventarioItensRouteImport.update({
+    id: '/api/public/inventario/itens',
+    path: '/api/public/inventario/itens',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiPublicInventarioMovimentacoesRoute =
+  ApiPublicInventarioMovimentacoesRouteImport.update({
+    id: '/api/public/inventario/movimentacoes',
+    path: '/api/public/inventario/movimentacoes',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiPublicInventarioResumoRoute =
+  ApiPublicInventarioResumoRouteImport.update({
+    id: '/api/public/inventario/resumo',
+    path: '/api/public/inventario/resumo',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiPublicInventarioItensIdRoute =
+  ApiPublicInventarioItensIdRouteImport.update({
+    id: '/$id',
+    path: '/$id',
+    getParentRoute: () => ApiPublicInventarioItensRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/publico': typeof PublicoRoute
+  '/api/public/inventario/itens': typeof ApiPublicInventarioItensRouteWithChildren
+  '/api/public/inventario/movimentacoes': typeof ApiPublicInventarioMovimentacoesRoute
+  '/api/public/inventario/resumo': typeof ApiPublicInventarioResumoRoute
+  '/api/public/inventario/': typeof ApiPublicInventarioIndexRoute
+  '/api/public/inventario/itens/$id': typeof ApiPublicInventarioItensIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/publico': typeof PublicoRoute
+  '/api/public/inventario/itens': typeof ApiPublicInventarioItensRouteWithChildren
+  '/api/public/inventario/movimentacoes': typeof ApiPublicInventarioMovimentacoesRoute
+  '/api/public/inventario/resumo': typeof ApiPublicInventarioResumoRoute
+  '/api/public/inventario': typeof ApiPublicInventarioIndexRoute
+  '/api/public/inventario/itens/$id': typeof ApiPublicInventarioItensIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/publico': typeof PublicoRoute
+  '/api/public/inventario/itens': typeof ApiPublicInventarioItensRouteWithChildren
+  '/api/public/inventario/movimentacoes': typeof ApiPublicInventarioMovimentacoesRoute
+  '/api/public/inventario/resumo': typeof ApiPublicInventarioResumoRoute
+  '/api/public/inventario/': typeof ApiPublicInventarioIndexRoute
+  '/api/public/inventario/itens/$id': typeof ApiPublicInventarioItensIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/publico'
+  fullPaths:
+    | '/'
+    | '/publico'
+    | '/api/public/inventario/itens'
+    | '/api/public/inventario/movimentacoes'
+    | '/api/public/inventario/resumo'
+    | '/api/public/inventario/'
+    | '/api/public/inventario/itens/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/publico'
-  id: '__root__' | '/' | '/publico'
+  to:
+    | '/'
+    | '/publico'
+    | '/api/public/inventario/itens'
+    | '/api/public/inventario/movimentacoes'
+    | '/api/public/inventario/resumo'
+    | '/api/public/inventario'
+    | '/api/public/inventario/itens/$id'
+  id:
+    | '__root__'
+    | '/'
+    | '/publico'
+    | '/api/public/inventario/itens'
+    | '/api/public/inventario/movimentacoes'
+    | '/api/public/inventario/resumo'
+    | '/api/public/inventario/'
+    | '/api/public/inventario/itens/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   PublicoRoute: typeof PublicoRoute
+  ApiPublicInventarioItensRoute: typeof ApiPublicInventarioItensRouteWithChildren
+  ApiPublicInventarioMovimentacoesRoute: typeof ApiPublicInventarioMovimentacoesRoute
+  ApiPublicInventarioResumoRoute: typeof ApiPublicInventarioResumoRoute
+  ApiPublicInventarioIndexRoute: typeof ApiPublicInventarioIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -65,12 +141,65 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PublicoRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/inventario/': {
+      id: '/api/public/inventario/'
+      path: '/api/public/inventario'
+      fullPath: '/api/public/inventario/'
+      preLoaderRoute: typeof ApiPublicInventarioIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/inventario/itens': {
+      id: '/api/public/inventario/itens'
+      path: '/api/public/inventario/itens'
+      fullPath: '/api/public/inventario/itens'
+      preLoaderRoute: typeof ApiPublicInventarioItensRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/inventario/movimentacoes': {
+      id: '/api/public/inventario/movimentacoes'
+      path: '/api/public/inventario/movimentacoes'
+      fullPath: '/api/public/inventario/movimentacoes'
+      preLoaderRoute: typeof ApiPublicInventarioMovimentacoesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/inventario/resumo': {
+      id: '/api/public/inventario/resumo'
+      path: '/api/public/inventario/resumo'
+      fullPath: '/api/public/inventario/resumo'
+      preLoaderRoute: typeof ApiPublicInventarioResumoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/inventario/itens/$id': {
+      id: '/api/public/inventario/itens/$id'
+      path: '/$id'
+      fullPath: '/api/public/inventario/itens/$id'
+      preLoaderRoute: typeof ApiPublicInventarioItensIdRouteImport
+      parentRoute: typeof ApiPublicInventarioItensRoute
+    }
   }
 }
+
+interface ApiPublicInventarioItensRouteChildren {
+  ApiPublicInventarioItensIdRoute: typeof ApiPublicInventarioItensIdRoute
+}
+
+const ApiPublicInventarioItensRouteChildren: ApiPublicInventarioItensRouteChildren =
+  {
+    ApiPublicInventarioItensIdRoute: ApiPublicInventarioItensIdRoute,
+  }
+
+const ApiPublicInventarioItensRouteWithChildren =
+  ApiPublicInventarioItensRoute._addFileChildren(
+    ApiPublicInventarioItensRouteChildren,
+  )
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   PublicoRoute: PublicoRoute,
+  ApiPublicInventarioItensRoute: ApiPublicInventarioItensRouteWithChildren,
+  ApiPublicInventarioMovimentacoesRoute: ApiPublicInventarioMovimentacoesRoute,
+  ApiPublicInventarioResumoRoute: ApiPublicInventarioResumoRoute,
+  ApiPublicInventarioIndexRoute: ApiPublicInventarioIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
