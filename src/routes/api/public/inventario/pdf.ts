@@ -27,8 +27,11 @@ export const Route = createFileRoute("/api/public/inventario/pdf")({
           const { carregarItens, filtrar } = await import("@/lib/api-inventario.server");
           const itens = filtrar(await carregarItens(), url);
 
-          const mod = await import("jspdf");
-          const jsPDF = (mod as any).jsPDF ?? mod.default;
+          const mod = (await import("jspdf")) as unknown as {
+            jsPDF?: new (o?: unknown) => any;
+            default?: new (o?: unknown) => any;
+          };
+          const jsPDF = (mod.jsPDF ?? mod.default)!;
           const doc = new jsPDF({ unit: "mm", format: "a4" });
           const largura = 210;
           const margem = 12;
