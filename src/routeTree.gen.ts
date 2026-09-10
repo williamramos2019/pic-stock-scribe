@@ -14,6 +14,8 @@ import { Route as PublicoRouteImport } from './routes/publico'
 import { Route as ApiPublicInventarioIndexRouteImport } from './routes/api/public/inventario/index'
 import { Route as ApiPublicInventarioItensRouteImport } from './routes/api/public/inventario/itens'
 import { Route as ApiPublicInventarioMovimentacoesRouteImport } from './routes/api/public/inventario/movimentacoes'
+import { Route as ApiPublicInventarioPdfRouteImport } from './routes/api/public/inventario/pdf'
+import { Route as ApiPublicInventarioPlanilhaRouteImport } from './routes/api/public/inventario/planilha'
 import { Route as ApiPublicInventarioResumoRouteImport } from './routes/api/public/inventario/resumo'
 import { Route as ApiPublicInventarioItensIdRouteImport } from './routes/api/public/inventario/itens.$id'
 
@@ -45,6 +47,17 @@ const ApiPublicInventarioMovimentacoesRoute =
     path: '/api/public/inventario/movimentacoes',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiPublicInventarioPdfRoute = ApiPublicInventarioPdfRouteImport.update({
+  id: '/api/public/inventario/pdf',
+  path: '/api/public/inventario/pdf',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicInventarioPlanilhaRoute =
+  ApiPublicInventarioPlanilhaRouteImport.update({
+    id: '/api/public/inventario/planilha',
+    path: '/api/public/inventario/planilha',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiPublicInventarioResumoRoute =
   ApiPublicInventarioResumoRouteImport.update({
     id: '/api/public/inventario/resumo',
@@ -63,6 +76,8 @@ export interface FileRoutesByFullPath {
   '/publico': typeof PublicoRoute
   '/api/public/inventario/itens': typeof ApiPublicInventarioItensRouteWithChildren
   '/api/public/inventario/movimentacoes': typeof ApiPublicInventarioMovimentacoesRoute
+  '/api/public/inventario/pdf': typeof ApiPublicInventarioPdfRoute
+  '/api/public/inventario/planilha': typeof ApiPublicInventarioPlanilhaRoute
   '/api/public/inventario/resumo': typeof ApiPublicInventarioResumoRoute
   '/api/public/inventario/': typeof ApiPublicInventarioIndexRoute
   '/api/public/inventario/itens/$id': typeof ApiPublicInventarioItensIdRoute
@@ -72,6 +87,8 @@ export interface FileRoutesByTo {
   '/publico': typeof PublicoRoute
   '/api/public/inventario/itens': typeof ApiPublicInventarioItensRouteWithChildren
   '/api/public/inventario/movimentacoes': typeof ApiPublicInventarioMovimentacoesRoute
+  '/api/public/inventario/pdf': typeof ApiPublicInventarioPdfRoute
+  '/api/public/inventario/planilha': typeof ApiPublicInventarioPlanilhaRoute
   '/api/public/inventario/resumo': typeof ApiPublicInventarioResumoRoute
   '/api/public/inventario': typeof ApiPublicInventarioIndexRoute
   '/api/public/inventario/itens/$id': typeof ApiPublicInventarioItensIdRoute
@@ -82,6 +99,8 @@ export interface FileRoutesById {
   '/publico': typeof PublicoRoute
   '/api/public/inventario/itens': typeof ApiPublicInventarioItensRouteWithChildren
   '/api/public/inventario/movimentacoes': typeof ApiPublicInventarioMovimentacoesRoute
+  '/api/public/inventario/pdf': typeof ApiPublicInventarioPdfRoute
+  '/api/public/inventario/planilha': typeof ApiPublicInventarioPlanilhaRoute
   '/api/public/inventario/resumo': typeof ApiPublicInventarioResumoRoute
   '/api/public/inventario/': typeof ApiPublicInventarioIndexRoute
   '/api/public/inventario/itens/$id': typeof ApiPublicInventarioItensIdRoute
@@ -93,6 +112,8 @@ export interface FileRouteTypes {
     | '/publico'
     | '/api/public/inventario/itens'
     | '/api/public/inventario/movimentacoes'
+    | '/api/public/inventario/pdf'
+    | '/api/public/inventario/planilha'
     | '/api/public/inventario/resumo'
     | '/api/public/inventario/'
     | '/api/public/inventario/itens/$id'
@@ -102,6 +123,8 @@ export interface FileRouteTypes {
     | '/publico'
     | '/api/public/inventario/itens'
     | '/api/public/inventario/movimentacoes'
+    | '/api/public/inventario/pdf'
+    | '/api/public/inventario/planilha'
     | '/api/public/inventario/resumo'
     | '/api/public/inventario'
     | '/api/public/inventario/itens/$id'
@@ -111,6 +134,8 @@ export interface FileRouteTypes {
     | '/publico'
     | '/api/public/inventario/itens'
     | '/api/public/inventario/movimentacoes'
+    | '/api/public/inventario/pdf'
+    | '/api/public/inventario/planilha'
     | '/api/public/inventario/resumo'
     | '/api/public/inventario/'
     | '/api/public/inventario/itens/$id'
@@ -121,6 +146,8 @@ export interface RootRouteChildren {
   PublicoRoute: typeof PublicoRoute
   ApiPublicInventarioItensRoute: typeof ApiPublicInventarioItensRouteWithChildren
   ApiPublicInventarioMovimentacoesRoute: typeof ApiPublicInventarioMovimentacoesRoute
+  ApiPublicInventarioPdfRoute: typeof ApiPublicInventarioPdfRoute
+  ApiPublicInventarioPlanilhaRoute: typeof ApiPublicInventarioPlanilhaRoute
   ApiPublicInventarioResumoRoute: typeof ApiPublicInventarioResumoRoute
   ApiPublicInventarioIndexRoute: typeof ApiPublicInventarioIndexRoute
 }
@@ -162,6 +189,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicInventarioMovimentacoesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/inventario/pdf': {
+      id: '/api/public/inventario/pdf'
+      path: '/api/public/inventario/pdf'
+      fullPath: '/api/public/inventario/pdf'
+      preLoaderRoute: typeof ApiPublicInventarioPdfRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/inventario/planilha': {
+      id: '/api/public/inventario/planilha'
+      path: '/api/public/inventario/planilha'
+      fullPath: '/api/public/inventario/planilha'
+      preLoaderRoute: typeof ApiPublicInventarioPlanilhaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/inventario/resumo': {
       id: '/api/public/inventario/resumo'
       path: '/api/public/inventario/resumo'
@@ -198,6 +239,8 @@ const rootRouteChildren: RootRouteChildren = {
   PublicoRoute: PublicoRoute,
   ApiPublicInventarioItensRoute: ApiPublicInventarioItensRouteWithChildren,
   ApiPublicInventarioMovimentacoesRoute: ApiPublicInventarioMovimentacoesRoute,
+  ApiPublicInventarioPdfRoute: ApiPublicInventarioPdfRoute,
+  ApiPublicInventarioPlanilhaRoute: ApiPublicInventarioPlanilhaRoute,
   ApiPublicInventarioResumoRoute: ApiPublicInventarioResumoRoute,
   ApiPublicInventarioIndexRoute: ApiPublicInventarioIndexRoute,
 }
